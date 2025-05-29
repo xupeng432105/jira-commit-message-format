@@ -5,6 +5,7 @@ import { IssueView } from './issue-view';
 import { AuthProcessDialog } from './auth-process-dialog';
 import { registerCommand_Auth } from './commands/auth';
 import { registerCommand_Format } from './commands/format';
+import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from './key';
 
 
 // This method is called when your extension is activated
@@ -16,9 +17,9 @@ export async function activate(context: vscode.ExtensionContext) {
 		registerCommand_Format(context)
 	]);
 
-	if (context.globalState.get('instance')
-		&& context.globalState.get('username')
-		&& context.globalState.get('token')
+	if (context.globalState.get(KEY_INSTANCE)
+		&& context.globalState.get(KEY_USERNAME)
+		&& context.globalState.get(KEY_TOKEN)
 	) {
 		new IssueView(context);
 	} else {

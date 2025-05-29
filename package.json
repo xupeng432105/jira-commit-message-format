@@ -2,7 +2,13 @@
   "name": "jira-commit-message-format",
   "displayName": "JCF",
   "description": "Customize git commit message format related with JIRA ticket",
+  "license": "MIT",
+  "icon": "./resources/icon.png",
   "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:xupeng432105/jira-commit-message-format.git"
+  },
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -31,7 +37,7 @@
         {
           "id": "jiraCommitFormat",
           "title": "Jira commit format",
-          "icon": "src/assets/icon.svg"
+          "icon": "./resources/icon.svg"
         }
       ]
     },
@@ -40,7 +46,7 @@
         {
           "id": "issues",
           "name": "issues",
-          "icon": "src/assets/icon.svg",
+          "icon": "./resources/icon.svg",
           "contextualTitle": "Jira commit format"
         }
       ]

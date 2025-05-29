@@ -11,7 +11,7 @@ export function loadIssues(auth: string, instance: string) {
 		})
 		.then(response => response.json())
 		.then((data: any) => {
-			const _data: any[] = data.issues.map((issue: any) => ({key: issue.key, summary: issue.fields.summary, status: issue.fields.status.name}));
+			const _data: any[] = data.issues.map((issue: any) => ({key: issue.key, summary: issue.fields.summary, status: issue.fields.status.name, type: issue.fields.issuetype.name}));
 			return _data;
 		}, error => {
 			vscode.window.showErrorMessage('Error fetching data from GitHub API: ' + error);
