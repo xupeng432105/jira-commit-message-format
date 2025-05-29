@@ -41,7 +41,7 @@ export class AuthProcessDialog {
         context.globalState.update('username', username);
         const token = await vscode.window.showInputBox({
             prompt: 'Please fill your Jira token. You can find your token in your Jira account settings.',
-            placeHolder: 'e.g. ATATT3xFfGF0ox_1JDrMpLArBQcFc8dINEuBn-1-hvobLLwxfgcuH5ZusKBQ9swSI6_b4ujoXsEgnNYM0RtuTkRC5oMdDgGjY6oJ-8M0ZWhyOGk9F3LmrQcGU25aV1z5UKCHx9eeiA7wQZ3aHLC9pC8HxXvQW65OUtootC8_jz7i1MeuZKJEHyE=3AC6B2EC',
+            placeHolder: 'e.g. ATATT3xFfGF0ox_1JDrMpLArBQcFc8dINEuBn-1-hvobLLwx...',
             value: context.globalState.get('token') || '',
             password: true,
             ignoreFocusOut: true,
