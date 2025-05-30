@@ -8,28 +8,33 @@ import { registerCommand_Format } from './commands/format';
 import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from './key';
 import { registerCommand_ViewIssue } from './commands/view-issue';
 import { registerCommand_LoadStatus } from './commands/status';
+import { registerCommand_Reload } from './commands/reload-data';
+import { AuthService } from './services/auth.service';
 
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
 
+	new AuthService(context);
+
 	context.subscriptions.push(...[
 		registerCommand_Auth(context),
 		registerCommand_Format(context),
 		registerCommand_ViewIssue(context),
-		registerCommand_LoadStatus(context)
+		registerCommand_LoadStatus(context),
 	]);
-
-	if (context.globalState.get(KEY_INSTANCE)
-		&& context.globalState.get(KEY_USERNAME)
-		&& context.globalState.get(KEY_TOKEN)
-	) {
-		new IssueView(context);
-	} else {
-		await new AuthProcessDialog(context).init();
-		new IssueView(context);
-	}
+	const { auth, instance, username, token } = await AuthService.getInstance(context).loadInfo();
+	const issueView = new IssueView(context);
+	// if (context.globalState.get(KEY_INSTANCE)
+	// 	&& context.globalState.get(KEY_USERNAME)
+	// 	&& context.globalState.get(KEY_TOKEN)
+	// ) {
+	// 	const issueView = new IssueView(context);
+	// } else {
+	// 	await new AuthProcessDialog(context).init();
+	// 	new IssueView(context);
+	// }
 }
 
 // This method is called when your extension is deactivated
