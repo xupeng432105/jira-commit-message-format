@@ -96,6 +96,11 @@
                 "type": "string",
                 "default": "{{issue.key}} - {{issue.summary}}",
                 "description": "The format of the commit message. Use {{issue.key}} for the issue key and {{issue.summary}} for the issue summary."
+            },
+            "JCF.statusList": {
+                "type": "array",
+                "default": ["Open", "In Progress (Implement)", "Reopened"],
+                "description": "List of statuses to filter issues. Only issues with these statuses will be shown in the view."
             }
         }
     }

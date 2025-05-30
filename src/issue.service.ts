@@ -1,7 +1,9 @@
 import * as vscode from 'vscode';
 
 export function loadIssues(auth: string, instance: string) {
-	return fetch(`https://${instance}/rest/api/2/search?jql=assignee=currentUser() AND status in ("Open", "In Progress (Implement)", "Reopened")`, {
+	const config = vscode.workspace.getConfiguration('JCF');
+	let statusList: string[] = config.get<string[]>('statusList') || ["Open", "In Progress (Implement)", "Reopened"];
+	return fetch(`https://${instance}/rest/api/2/search?jql=assignee=currentUser() AND status in (${statusList.map(s => '"' + s + '"').join(", ")})`, {
 			method: 'GET',
 			headers: {
 				'Authorization': `Basic ${auth}`,
