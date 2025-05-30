@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
-import { loadIssues } from './services/issue.service';
-import { AuthService } from './services/auth.service';
+import { loadIssues } from '../services/issue.service';
+import { AuthService } from '../services/auth.service';
 
 export class IssueTreeDataProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
     context: vscode.ExtensionContext;

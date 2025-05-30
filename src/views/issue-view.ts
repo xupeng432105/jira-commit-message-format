@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { IssueTreeDataProvider } from '../issue-tree-data-provider';
+import { IssueTreeDataProvider } from './issue-tree-data-provider';
 import { registerCommand_Reload } from '../commands/reload-data';
 
 export class IssueView {
