@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from '../key';
 
 export class AuthProcessDialog {
     public context: vscode.ExtensionContext | null = null;
@@ -10,9 +11,9 @@ export class AuthProcessDialog {
         const context = this.context as vscode.ExtensionContext;
         const instance = await vscode.window.showInputBox({
             prompt: 'Please fill your Jira information firstly.',
-            placeHolder: 'e.g. yourjirawebsite.atlassian.net',
+            placeHolder: 'e.g. yours.atlassian.net',
             ignoreFocusOut: true,
-            value: context.globalState.get('instance') || '',
+            value: context.globalState.get(KEY_INSTANCE) || '',
             validateInput(value) {
                 if (!value) {
                     return 'Jira instance cannot be empty.';
@@ -24,11 +25,11 @@ export class AuthProcessDialog {
             },
         });
         if(!instance) return;
-        context.globalState.update('instance', instance);
+        context.globalState.update(KEY_INSTANCE, instance);
         const username = await vscode.window.showInputBox({
             prompt: 'Please fill your Jira username.',
             placeHolder: 'e.g. abc.gmail.com',
-            value: context.globalState.get('username') || '',
+            value: context.globalState.get(KEY_USERNAME) || '',
             ignoreFocusOut: true,
             validateInput(value) {
                 if (!value) {
@@ -38,11 +39,11 @@ export class AuthProcessDialog {
             },
         });
         if(!username) return;
-        context.globalState.update('username', username);
+        context.globalState.update(KEY_USERNAME, username);
         const token = await vscode.window.showInputBox({
             prompt: 'Please fill your Jira token. You can find your token in your Jira account settings.',
             placeHolder: 'e.g. ATATT3xFfGF0ox_1JDrMpLArBQcFc8dINEuBn-1-hvobLLwx...',
-            value: context.globalState.get('token') || '',
+            value: context.globalState.get(KEY_TOKEN) || '',
             password: true,
             ignoreFocusOut: true,
             validateInput(value) {
@@ -53,7 +54,7 @@ export class AuthProcessDialog {
             },
         });
         if(!token) return;
-        context.globalState.update('token', token);
+        context.globalState.update(KEY_TOKEN, token);
 
         return true;
 }
