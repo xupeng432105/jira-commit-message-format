@@ -26,9 +26,9 @@ export class IssueView {
                     return element;
                 },
                 getChildren: async () => {
-                    // let data = await loadIssues(auth, instance) || [];
-                    const _testData = testData.issues;
-                    let data = _testData;
+                    let data = await loadIssues(auth, instance) || [];
+                    // const _testData = testData.issues;
+                    // let data = _testData;
                     const treeData: vscode.TreeItem[] = data.map(issue => {
                         const item: (vscode.TreeItem) = new vscode.TreeItem('Jira Issues', vscode.TreeItemCollapsibleState.Expanded);
                         item.label = `${issue.priority} [${issue.type}] ${issue.key} - ${issue.summary}`;
