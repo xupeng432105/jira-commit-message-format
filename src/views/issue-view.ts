@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
-import { loadIssues } from './issue.service';
-import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from './key';
+import { loadIssues } from '../issue.service';
+import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from '../key';
+import { testData } from '../test/test-data.test';
 
 export class IssueView {
     public static webview: vscode.TreeView<vscode.TreeItem> | null = null;
@@ -25,17 +26,19 @@ export class IssueView {
                     return element;
                 },
                 getChildren: async () => {
-                    const data = await loadIssues(auth, instance) || [];
+                    // let data = await loadIssues(auth, instance) || [];
+                    const _testData = testData.issues;
+                    let data = _testData;
                     const treeData: vscode.TreeItem[] = data.map(issue => {
                         const item: (vscode.TreeItem) = new vscode.TreeItem('Jira Issues', vscode.TreeItemCollapsibleState.Expanded);
-                        item.label = `${issue.key} - ${issue.summary} (${issue.type})`;
+                        item.label = `${issue.priority} [${issue.type}] ${issue.key} - ${issue.summary}`;
+                        // item.iconPath = issue.source.fields.issuetype.iconUrl;
                         item.collapsibleState = vscode.TreeItemCollapsibleState.None;
-                        item.contextValue = issue;
+                        item.contextValue = issue as any;
                         item.tooltip = new vscode.MarkdownString(`**${issue.key}**\n${issue.summary}\n_Status: ${issue.status}_`);
                         item.accessibilityInformation = {
                             label: `Jira Issue: ${issue.key} - ${issue.summary} (${issue.status})`
                         };
-
                         return item;
                     });
                     return treeData;

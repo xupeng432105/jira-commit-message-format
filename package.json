@@ -1,13 +1,24 @@
 {
   "name": "jira-commit-message-format",
-  "displayName": "JCF",
-  "description": "Customize git commit message format related with JIRA ticket",
+  "displayName": "Jira Commit Format",
+  "publisher": "xupeng432105",
+  "description": "A Visual Studio Code extension to customize git commit message format related with JIRA tickets.",
+  "keywords": [
+    "jira",
+    "commit",
+    "message",
+    "format",
+    "git",
+    "vscode",
+    "extension"
+  ],
+  "homepage": "https://github.com/xupeng432105/jira-commit-message-format",
   "license": "MIT",
   "icon": "./resources/icon.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
-    "url": "git@github.com:xupeng432105/jira-commit-message-format.git"
+    "url": "https://github.com/xupeng432105/jira-commit-message-format/main"
   },
   "engines": {
     "vscode": "^1.100.0"
@@ -28,8 +39,8 @@
         "title": "Re-authenticate"
       },
       {
-        "command": "JCF.load",
-        "title": "JCF"
+        "command": "JCF.viewIssue",
+        "title": "View issue data"
       }
     ],
     "viewsContainers": {
@@ -55,13 +66,20 @@
       "view/title": [
         {
           "command": "JCF.auth",
-          "group": "jiraCommitFormat"
+          "group": "jiraCommitFormat",
+          "when": "view === 'issues'"
         }
       ],
       "view/item/context": [
         {
           "command": "JCF",
-          "group": "navigation"
+          "group": "navigation",
+          "when": "view === 'issues'"
+        }, 
+        {
+          "command": "JCF.viewIssue",
+          "group": "navigation",
+          "when": "view === 'issues'"
         }
       ]
     },

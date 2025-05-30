@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from './key';
+import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from '../key';
 
 export class AuthProcessDialog {
     public context: vscode.ExtensionContext | null = null;
@@ -11,7 +11,7 @@ export class AuthProcessDialog {
         const context = this.context as vscode.ExtensionContext;
         const instance = await vscode.window.showInputBox({
             prompt: 'Please fill your Jira information firstly.',
-            placeHolder: 'e.g. yourjirawebsite.atlassian.net',
+            placeHolder: 'e.g. yours.atlassian.net',
             ignoreFocusOut: true,
             value: context.globalState.get(KEY_INSTANCE) || '',
             validateInput(value) {
