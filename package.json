@@ -1,5 +1,5 @@
 {
-  "name": "jira-commit-format",
+  "name": "jira-commit-message-format",
   "displayName": "Jira Commit Format",
   "publisher": "xupeng",
   "description": "A Visual Studio Code extension to customize git commit message format related with JIRA tickets.",
