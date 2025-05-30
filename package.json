@@ -15,7 +15,7 @@
   "homepage": "https://github.com/xupeng432105/jira-commit-message-format",
   "license": "MIT",
   "icon": "./resources/icon.png",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": "https://github.com/xupeng432105/jira-commit-message-format/main",
   "engines": {
     "vscode": "^1.100.0"
@@ -42,6 +42,10 @@
       {
         "command": "JCF.loadStatus",
         "title": "Load instance statuses"
+      },
+      {
+        "command": "JCF.reload",
+        "title": "Reload"
       }
     ],
     "viewsContainers": {
@@ -72,6 +76,11 @@
         },
         {
           "command": "JCF.loadStatus",
+          "group": "jiraCommitFormat",
+          "when": "view === 'issues'"
+        },
+        {
+          "command": "JCF.reload",
           "group": "jiraCommitFormat",
           "when": "view === 'issues'"
         }
@@ -114,7 +123,8 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "build": "vsce package"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.10",

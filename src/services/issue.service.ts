@@ -23,6 +23,7 @@ export function loadIssues(auth: string, instance: string) {
                     source: issue
                 }
             ));
+			vscode.window.showErrorMessage('Error fetching data from JIRA API, check your network or authentication: ' );
 			return _data;
 		}, error => {
 			vscode.window.showErrorMessage('Error fetching data from JIRA API, check your network or authentication: ' + error);
