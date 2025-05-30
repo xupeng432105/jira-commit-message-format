@@ -16,10 +16,7 @@
   "license": "MIT",
   "icon": "./resources/icon.png",
   "version": "0.0.2",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/xupeng432105/jira-commit-message-format/main"
-  },
+  "repository": "https://github.com/xupeng432105/jira-commit-message-format/main",
   "engines": {
     "vscode": "^1.100.0"
   },
@@ -41,6 +38,10 @@
       {
         "command": "JCF.viewIssue",
         "title": "View issue data"
+      },
+      {
+        "command": "JCF.loadStatus",
+        "title": "Load instance statuses"
       }
     ],
     "viewsContainers": {
@@ -66,6 +67,11 @@
       "view/title": [
         {
           "command": "JCF.auth",
+          "group": "jiraCommitFormat",
+          "when": "view === 'issues'"
+        },
+        {
+          "command": "JCF.loadStatus",
           "group": "jiraCommitFormat",
           "when": "view === 'issues'"
         }

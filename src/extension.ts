@@ -7,6 +7,7 @@ import { registerCommand_Auth } from './commands/auth';
 import { registerCommand_Format } from './commands/format';
 import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from './key';
 import { registerCommand_ViewIssue } from './commands/view-issue';
+import { registerCommand_LoadStatus } from './commands/status';
 
 
 // This method is called when your extension is activated
@@ -16,7 +17,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(...[
 		registerCommand_Auth(context),
 		registerCommand_Format(context),
-		registerCommand_ViewIssue(context)
+		registerCommand_ViewIssue(context),
+		registerCommand_LoadStatus(context)
 	]);
 
 	if (context.globalState.get(KEY_INSTANCE)

@@ -1,7 +1,6 @@
 import * as vscode from 'vscode';
 import { loadIssues } from '../issue.service';
-import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from '../key';
-import { testData } from '../test/test-data.test';
+import { loadInfo } from '../key';
 
 export class IssueView {
     public static webview: vscode.TreeView<vscode.TreeItem> | null = null;
@@ -12,10 +11,7 @@ export class IssueView {
 }
 
     init() {
-        const username = this.context.globalState.get(KEY_USERNAME) || '';
-        const token = this.context.globalState.get(KEY_TOKEN) || '';
-        const instance = this.context.globalState.get(KEY_INSTANCE) as string || '';
-        const auth = btoa(`${username}:${token}`);
+        const { auth, instance, username, token } = loadInfo(this.context);
         if(!instance || !username || !token) {
             vscode.window.showErrorMessage('Please fill jira information firstly.');
             return null;
@@ -26,9 +22,9 @@ export class IssueView {
                     return element;
                 },
                 getChildren: async () => {
-                    // let data = await loadIssues(auth, instance) || [];
-                    const _testData = testData.issues;
-                    let data = _testData;
+                    let data = await loadIssues(auth, instance) || [];
+                    // const _testData = testData.issues;
+                    // let data = _testData;
                     const treeData: vscode.TreeItem[] = data.map(issue => {
                         const item: (vscode.TreeItem) = new vscode.TreeItem('Jira Issues', vscode.TreeItemCollapsibleState.Expanded);
                         item.label = `${issue.priority} [${issue.type}] ${issue.key} - ${issue.summary}`;
