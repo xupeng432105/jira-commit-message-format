@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export function loadIssues(auth: string, instance: string) {
-	return fetch(`https://${instance}/rest/api/2/search?jql=assignee=currentUser() AND status in ("Open", "In Progress", "Reopened")`, {
+	return fetch(`https://${instance}/rest/api/2/search?jql=assignee=currentUser() AND status in ("Open", "In Progress (Implement)", "Reopened")`, {
 			method: 'GET',
 			headers: {
 				'Authorization': `Basic ${auth}`,
@@ -17,7 +17,7 @@ export function loadIssues(auth: string, instance: string) {
                     summary: issue.fields.summary, 
                     status: issue.fields.status.name, 
                     type: issue.fields.issuetype.name, 
-					priority: issue.source.fields.priority.name,
+					priority: issue.fields.priority.name,
                     source: issue
                 }
             ));
@@ -26,4 +26,22 @@ export function loadIssues(auth: string, instance: string) {
 			vscode.window.showErrorMessage('Error fetching data from JIRA API, check your network or authentication: ' + error);
 			vscode.commands.executeCommand('JCF.auth');
 		})
+}
+
+export function loadStatuses(auth: string, instance: string) {
+	return fetch(`https://${instance}/rest/api/2/status`, {
+			method: 'GET',
+			headers: {
+				'Authorization': `Basic ${auth}`,
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then((data: any) => {
+			return data;
+		}, error => {
+			vscode.window.showErrorMessage('Error fetching statuses from JIRA API, check your network or authentication: ' + error);
+			vscode.commands.executeCommand('JCF.auth');
+		});
 }

@@ -38,6 +38,10 @@
       {
         "command": "JCF.viewIssue",
         "title": "View issue data"
+      },
+      {
+        "command": "JCF.loadStatus",
+        "title": "Load instance statuses"
       }
     ],
     "viewsContainers": {
@@ -63,6 +67,11 @@
       "view/title": [
         {
           "command": "JCF.auth",
+          "group": "jiraCommitFormat",
+          "when": "view === 'issues'"
+        },
+        {
+          "command": "JCF.loadStatus",
           "group": "jiraCommitFormat",
           "when": "view === 'issues'"
         }
