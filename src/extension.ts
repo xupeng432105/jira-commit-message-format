@@ -2,13 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 import { IssueView } from './views/issue-view';
-import { AuthProcessDialog } from './views/auth-process-dialog';
 import { registerCommand_Auth } from './commands/auth';
 import { registerCommand_Format } from './commands/format';
-import { KEY_INSTANCE, KEY_TOKEN, KEY_USERNAME } from './key';
 import { registerCommand_ViewIssue } from './commands/view-issue';
 import { registerCommand_LoadStatus } from './commands/status';
-import { registerCommand_Reload } from './commands/reload-data';
 import { AuthService } from './services/auth.service';
 
 
