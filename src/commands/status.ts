@@ -7,7 +7,13 @@ export function registerCommand_LoadStatus(context: vscode.ExtensionContext) {
     return vscode.commands.registerCommand('JCF.loadStatus', async (...args) => {
         const { auth, instance } = await AuthService.getInstance(context).loadInfo();
         loadStatuses(auth, instance).then(val => {
-            vscode.window.showInformationMessage(`Loaded ${val.length} statuses from Jira instance ${instance}: ${val.map((v: any) => v.name)}`, 'Copy to Clipboard', 'Close').then(selection => {
+            val = Array.from(new Set(val.map((v: any) => v.name)));
+            val = val.sort((a: any, b: any) => {
+                if (a.toLowerCase() < b.toLowerCase()) { return -1; }
+                if (a.toLowerCase() > b.toLowerCase()) { return 1; }
+                return 0;
+            });
+            vscode.window.showInformationMessage(`Loaded ${val.length} statuses from Jira instance ${instance}: ${val}`, 'Copy to Clipboard', 'Close').then(selection => {
                 if (selection === 'Copy to Clipboard') {
                     const statusList = val.map((status: any) => `${status.name}`).join(',');
                     clipboardy.default.writeSync(statusList);
@@ -16,7 +22,7 @@ export function registerCommand_LoadStatus(context: vscode.ExtensionContext) {
                 else if (selection === 'Close') {
                     // Do nothing, just close the message
                 }
-                }
+            }
             );
         })
     });

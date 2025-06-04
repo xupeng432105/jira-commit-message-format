@@ -5,7 +5,6 @@ import { IssueView } from '../views/issue-view';
 export function registerCommand_Auth(context: vscode.ExtensionContext) {
     return vscode.commands.registerCommand('JCF.auth', async () => {
         const v = await new AuthProcessDialog(context).init();
-        if (v)
-            new IssueView(context);
+        if (v) { IssueView.getInstance()?.treeViewProvider?.refresh(); }
     });
 }

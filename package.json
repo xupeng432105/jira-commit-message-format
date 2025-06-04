@@ -15,7 +15,7 @@
   "homepage": "https://github.com/xupeng432105/jira-commit-message-format",
   "license": "MIT",
   "icon": "./resources/icon.png",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": "https://github.com/xupeng432105/jira-commit-message-format/main",
   "engines": {
     "vscode": "^1.100.0"
