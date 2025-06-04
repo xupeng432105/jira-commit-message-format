@@ -13,21 +13,28 @@ export function loadIssues(auth: string, instance: string) {
 		})
 		.then(response => response.json())
 		.then((data: any) => {
-			const _data: any[] = data.issues.map((issue: any) => (
-                {
-                    key: issue.key, 
-                    summary: issue.fields.summary, 
-                    status: issue.fields.status.name, 
-                    type: issue.fields.issuetype.name, 
-					priority: issue.fields.priority.name,
-                    source: issue
-                }
-            ));
-			return _data;
+			if(data.errorCode) {
+				vscode.window.showErrorMessage('Error fetching data from JIRA API, check your network or authentication: ' + data);
+				vscode.commands.executeCommand('JCF.auth');
+				return null;
+			} else {
+				const _data: any[] = data.issues.map((issue: any) => (
+					{
+						key: issue.key, 
+						summary: issue.fields.summary, 
+						status: issue.fields.status.name, 
+						type: issue.fields.issuetype.name, 
+						priority: issue.fields.priority.name,
+						source: issue
+					}
+				));
+				return _data;
+			}
+			
 		}, error => {
 			vscode.window.showErrorMessage('Error fetching data from JIRA API, check your network or authentication: ' + error);
 			vscode.commands.executeCommand('JCF.auth');
-		})
+		});
 }
 
 export function loadStatuses(auth: string, instance: string) {
@@ -41,6 +48,11 @@ export function loadStatuses(auth: string, instance: string) {
 		})
 		.then(response => response.json())
 		.then((data: any) => {
+			if(data.errorCode) {
+				vscode.window.showErrorMessage('Error fetching data from JIRA API, check your network or authentication: ' + data);
+				vscode.commands.executeCommand('JCF.auth');
+				return null;
+			}
 			return data;
 		}, error => {
 			vscode.window.showErrorMessage('Error fetching statuses from JIRA API, check your network or authentication: ' + error);
